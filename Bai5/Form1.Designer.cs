@@ -37,21 +37,21 @@
             label6 = new Label();
             txtIdNV = new TextBox();
             txtNameNV = new TextBox();
-            txtBirthday = new TextBox();
             txtPhone = new TextBox();
-            txtIdDepartment = new TextBox();
             btnAdd = new Button();
             btnEdit = new Button();
             btnAccept = new Button();
             btnCancel = new Button();
             btnRemove = new Button();
             dgvManageEmployee = new DataGridView();
-            label7 = new Label();
             col_ID = new DataGridViewTextBoxColumn();
             col_Name = new DataGridViewTextBoxColumn();
             col_Birthday = new DataGridViewTextBoxColumn();
             col_phone = new DataGridViewTextBoxColumn();
             col_IdDepartment = new DataGridViewTextBoxColumn();
+            label7 = new Label();
+            dtpBirthday = new DateTimePicker();
+            cmbIdDepartment = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvManageEmployee).BeginInit();
             SuspendLayout();
             // 
@@ -132,26 +132,12 @@
             txtNameNV.Size = new Size(279, 27);
             txtNameNV.TabIndex = 8;
             // 
-            // txtBirthday
-            // 
-            txtBirthday.Location = new Point(431, 177);
-            txtBirthday.Name = "txtBirthday";
-            txtBirthday.Size = new Size(279, 27);
-            txtBirthday.TabIndex = 9;
-            // 
             // txtPhone
             // 
             txtPhone.Location = new Point(431, 236);
             txtPhone.Name = "txtPhone";
             txtPhone.Size = new Size(279, 27);
             txtPhone.TabIndex = 10;
-            // 
-            // txtIdDepartment
-            // 
-            txtIdDepartment.Location = new Point(431, 295);
-            txtIdDepartment.Name = "txtIdDepartment";
-            txtIdDepartment.Size = new Size(279, 27);
-            txtIdDepartment.TabIndex = 11;
             // 
             // btnAdd
             // 
@@ -161,6 +147,7 @@
             btnAdd.TabIndex = 12;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -170,15 +157,18 @@
             btnEdit.TabIndex = 13;
             btnEdit.Text = "Sửa";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnAccept
             // 
+            btnAccept.Enabled = false;
             btnAccept.Location = new Point(320, 338);
             btnAccept.Name = "btnAccept";
             btnAccept.Size = new Size(94, 29);
             btnAccept.TabIndex = 14;
             btnAccept.Text = "Chấp nhận";
             btnAccept.UseVisualStyleBackColor = true;
+            btnAccept.Click += btnAccept_Click;
             // 
             // btnCancel
             // 
@@ -188,6 +178,7 @@
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Hủy";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnRemove
             // 
@@ -197,9 +188,11 @@
             btnRemove.TabIndex = 16;
             btnRemove.Text = "Xóa";
             btnRemove.UseVisualStyleBackColor = true;
+            btnRemove.Click += btnRemove_Click;
             // 
             // dgvManageEmployee
             // 
+            dgvManageEmployee.AllowUserToAddRows = false;
             dgvManageEmployee.BackgroundColor = SystemColors.ButtonHighlight;
             dgvManageEmployee.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvManageEmployee.Columns.AddRange(new DataGridViewColumn[] { col_ID, col_Name, col_Birthday, col_phone, col_IdDepartment });
@@ -208,6 +201,49 @@
             dgvManageEmployee.RowHeadersWidth = 51;
             dgvManageEmployee.Size = new Size(682, 203);
             dgvManageEmployee.TabIndex = 18;
+            dgvManageEmployee.CellClick += dgvManageEmployee_CellClick;
+            dgvManageEmployee.CellContentClick += dgvManageEmployee_CellContentClick;
+            // 
+            // col_ID
+            // 
+            col_ID.DataPropertyName = "manv";
+            col_ID.HeaderText = "Mã nhân viên";
+            col_ID.MinimumWidth = 6;
+            col_ID.Name = "col_ID";
+            col_ID.Width = 125;
+            // 
+            // col_Name
+            // 
+            col_Name.DataPropertyName = "tennv";
+            col_Name.HeaderText = "Tên nhân viên";
+            col_Name.MinimumWidth = 6;
+            col_Name.Name = "col_Name";
+            col_Name.Resizable = DataGridViewTriState.False;
+            col_Name.Width = 125;
+            // 
+            // col_Birthday
+            // 
+            col_Birthday.DataPropertyName = "ngaysinh";
+            col_Birthday.HeaderText = "Ngày sinh";
+            col_Birthday.MinimumWidth = 6;
+            col_Birthday.Name = "col_Birthday";
+            col_Birthday.Width = 125;
+            // 
+            // col_phone
+            // 
+            col_phone.DataPropertyName = "sodt";
+            col_phone.HeaderText = "Số điện thoại";
+            col_phone.MinimumWidth = 6;
+            col_phone.Name = "col_phone";
+            col_phone.Width = 125;
+            // 
+            // col_IdDepartment
+            // 
+            col_IdDepartment.DataPropertyName = "maphong";
+            col_IdDepartment.HeaderText = "Mã phòng ban";
+            col_IdDepartment.MinimumWidth = 6;
+            col_IdDepartment.Name = "col_IdDepartment";
+            col_IdDepartment.Width = 125;
             // 
             // label7
             // 
@@ -219,46 +255,29 @@
             label7.TabIndex = 19;
             label7.Text = "Danh sách nhân viên";
             // 
-            // col_ID
+            // dtpBirthday
             // 
-            col_ID.HeaderText = "Mã nhân viên";
-            col_ID.MinimumWidth = 6;
-            col_ID.Name = "col_ID";
-            col_ID.Width = 125;
+            dtpBirthday.Format = DateTimePickerFormat.Short;
+            dtpBirthday.Location = new Point(430, 181);
+            dtpBirthday.Name = "dtpBirthday";
+            dtpBirthday.Size = new Size(280, 27);
+            dtpBirthday.TabIndex = 20;
             // 
-            // col_Name
+            // cmbIdDepartment
             // 
-            col_Name.HeaderText = "Tên nhân viên";
-            col_Name.MinimumWidth = 6;
-            col_Name.Name = "col_Name";
-            col_Name.Width = 125;
-            // 
-            // col_Birthday
-            // 
-            col_Birthday.HeaderText = "Ngày sinh";
-            col_Birthday.MinimumWidth = 6;
-            col_Birthday.Name = "col_Birthday";
-            col_Birthday.Width = 125;
-            // 
-            // col_phone
-            // 
-            col_phone.HeaderText = "Số điện thoại";
-            col_phone.MinimumWidth = 6;
-            col_phone.Name = "col_phone";
-            col_phone.Width = 125;
-            // 
-            // col_IdDepartment
-            // 
-            col_IdDepartment.HeaderText = "Mã phòng ban";
-            col_IdDepartment.MinimumWidth = 6;
-            col_IdDepartment.Name = "col_IdDepartment";
-            col_IdDepartment.Width = 125;
+            cmbIdDepartment.FormattingEnabled = true;
+            cmbIdDepartment.Location = new Point(430, 300);
+            cmbIdDepartment.Name = "cmbIdDepartment";
+            cmbIdDepartment.Size = new Size(280, 28);
+            cmbIdDepartment.TabIndex = 21;
             // 
             // FManageEmployee
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(745, 648);
+            Controls.Add(cmbIdDepartment);
+            Controls.Add(dtpBirthday);
             Controls.Add(label7);
             Controls.Add(dgvManageEmployee);
             Controls.Add(btnRemove);
@@ -266,9 +285,7 @@
             Controls.Add(btnAccept);
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
-            Controls.Add(txtIdDepartment);
             Controls.Add(txtPhone);
-            Controls.Add(txtBirthday);
             Controls.Add(txtNameNV);
             Controls.Add(txtIdNV);
             Controls.Add(label6);
@@ -281,6 +298,7 @@
             Name = "FManageEmployee";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Quản lý nhân viên";
+            Load += FManageEmployee_Load;
             ((System.ComponentModel.ISupportInitialize)dgvManageEmployee).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -297,9 +315,7 @@
         private Label label6;
         private TextBox txtIdNV;
         private TextBox txtNameNV;
-        private TextBox txtBirthday;
         private TextBox txtPhone;
-        private TextBox txtIdDepartment;
         private Button btnAdd;
         private Button btnEdit;
         private Button btnAccept;
@@ -312,5 +328,7 @@
         private DataGridViewTextBoxColumn col_Birthday;
         private DataGridViewTextBoxColumn col_phone;
         private DataGridViewTextBoxColumn col_IdDepartment;
+        private DateTimePicker dtpBirthday;
+        private ComboBox cmbIdDepartment;
     }
 }
